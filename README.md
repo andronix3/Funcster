@@ -1,0 +1,2 @@
+# Funcster
+Some useful functions
