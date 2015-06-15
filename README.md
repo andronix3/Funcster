@@ -1,2 +1,2 @@
 # Funcster
-Some useful functions
+I started with implementation of some PDF functions and added later more.
