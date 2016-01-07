@@ -29,6 +29,8 @@
  */
 package com.smartg.function;
 
+import com.smartg.function.misc.Range;
+
 /**
  * IFunction represent parameterized classes of functions, like mathematical
  * formulas or sampled representations. In general, a function can take any

@@ -30,59 +30,8 @@
 
 package com.smartg.function;
 
-/**
- * 
- * @author andrey
- * 
- */
-public class StitchingFunction extends Function {
+import com.smartg.function.misc.Complex;
 
-    private IFunction[] functions;
-    private float[] bounds;
-    private float[] encode;
-    private float[] subdomains;
-
-    public StitchingFunction(IFunction[] functions, Range[] domain, Range[] range, float[] bounds, float[] encode) {
-	super(domain, range);
-	this.functions = functions;
-	setEncode(encode);
-	setBounds(bounds);
-    }
-
-    void setEncode(float[] encodeValues) {
-	encode = encodeValues;
-    }
-
-    void setBounds(float[] boundsValues) {
-	bounds = boundsValues;
-	subdomains = new float[functions.length + 1];
-	subdomains[0] = domain[0].min;
-	for (int i = 0; i < bounds.length; i++) {
-	    subdomains[i + 1] = bounds[i];
-	}
-	subdomains[subdomains.length - 1] = domain[0].max;
-    }
-
-    int getSubdomain(float d) {
-	for (int i = 0; i < subdomains.length - 1; i++) {
-	    if (d >= subdomains[i] && d < subdomains[i + 1]) {
-		return i;
-	    }
-	}
-	return -1;
-    }
-
-    void encode(int i, float[] input) {
-	float x = input[0];
-	float xp = interpolate(x, subdomains[i], subdomains[i + 1], encode[i + i], encode[i + i + 1]);
-	input[0] = xp;
-    }
-
-    public void compute(float[] output, float... input) {
-	int i = getSubdomain(input[0]);
-	if (i > -1) {
-	    encode(i, input);
-	    functions[i].compute(output, input);
-	}
-    }
+public interface IComplexFunction {
+    void compute(Complex dest, Complex cn);
 }

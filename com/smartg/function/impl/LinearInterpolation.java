@@ -27,29 +27,43 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package com.smartg.function.impl;
 
-package com.smartg.function;
+import com.smartg.function.Function;
+import com.smartg.function.misc.Range;
 
-public class MoebiusTransform implements PlaneFunction {
+public class LinearInterpolation extends Function {
 
-    double a = 2;
-    double s = Math.PI / 2.3;
-    double w = 1;
+    private final float smin, smax, sHeight;
+    private final float dmin, dmax, dHeight;
 
-    public MoebiusTransform(double a, double w) {
-	this.a = a;
-	this.w = w;
+    public LinearInterpolation(float smin, float smax, float dmin, float dmax) {
+	this(1, smin, smax, dmin, dmax);
     }
 
-    public void compute(double x, double y, DPoint dest) {
-	double x2 = x * x;
-	double y2 = y * y;
-	double r0 = x2 + y2;
-	double r = Math.sqrt(r0);
-	double theta = Math.atan2(y, x) * w;
+    public LinearInterpolation(int numInputs, float smin, float smax, float dmin, float dmax) {
+	super(Range.create(numInputs, smin, smax), Range.create(numInputs, dmin, dmax));
+	this.smin = smin;
+	this.smax = smax;
+	this.dmin = dmin;
+	this.dmax = dmax;
 
-	double rnew = Math.asin(Math.abs((r - s) / 2)) / PID2;
-	dest.x = rnew * Math.cos(theta);
-	dest.y = rnew * Math.sin(theta);
+	sHeight = smax - smin;
+	dHeight = dmax - dmin;
+    }
+
+    public void compute(float[] output, float... input) {
+	for (int i = 0; i < input.length; i++) {
+
+	    float k = input[i];
+	    if (k > smax) {
+		k = smax;
+	    }
+	    float r = dmin + ((k - smin) * (dHeight / sHeight));
+	    if (r > dmax) {
+		r = dmax;
+	    }
+	    output[i] = r;
+	}
     }
 }

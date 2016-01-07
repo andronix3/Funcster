@@ -27,40 +27,35 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
 
-public class LinearInterpolation extends Function {
+package com.smartg.function.misc;
 
-    private final float smin, smax, sHeight;
-    private final float dmin, dmax, dHeight;
+public class Range {
 
-    public LinearInterpolation(float smin, float smax, float dmin, float dmax) {
-	this(1, smin, smax, dmin, dmax);
+    public final float min;
+    public final float max;
+
+    public Range(float min, float max) {
+	this.min = min;
+	this.max = max;
     }
 
-    public LinearInterpolation(int numInputs, float smin, float smax, float dmin, float dmax) {
-	super(Range.create(numInputs, smin, smax), Range.create(numInputs, dmin, dmax));
-	this.smin = smin;
-	this.smax = smax;
-	this.dmin = dmin;
-	this.dmax = dmax;
-
-	sHeight = smax - smin;
-	dHeight = dmax - dmin;
-    }
-
-    public void compute(float[] output, float... input) {
-	for (int i = 0; i < input.length; i++) {
-
-	    float k = input[i];
-	    if (k > smax) {
-		k = smax;
-	    }
-	    float r = dmin + ((k - smin) * (dHeight / sHeight));
-	    if (r > dmax) {
-		r = dmax;
-	    }
-	    output[i] = r;
+    public static Range[] toRange(float[] values) {
+	int length = values.length / 2;
+	Range[] ranges = new Range[length];
+	for (int i = 0; i < length; i++) {
+	    ranges[i] = new Range(values[i + i], values[i + i + 1]);
 	}
+	return ranges;
+    }
+
+    public static Range[] create(int count, float min, float max) {
+	Range[] res = new Range[count];
+	Range r = new Range(min, max);
+	for (int i = 0; i < count; i++) {
+	    res[i] = r;
+	}
+
+	return res;
     }
 }

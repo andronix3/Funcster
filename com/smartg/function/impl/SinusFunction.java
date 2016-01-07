@@ -27,27 +27,20 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
 
-public class InverseFunction extends Function {
+package com.smartg.function.impl;
 
-    /**
-     * InverseFunktion. <b>Range</b> is always from <b>0.0f</b> to <b>1.0f</b>.
-     * Resulting value is <b>(max - input) / (max - min)</b> (where <b>max</b>
-     * is upper domain value and <b>min</b> is lower domain value).
-     * 
-     * @param domain
-     */
-    public InverseFunction(Range[] domain) {
-	super(domain, new Range[] { new Range(0, 1) });
+import com.smartg.function.Function;
+import com.smartg.function.misc.Range;
+
+public class SinusFunction extends Function {
+
+    public SinusFunction() {
+	super(new Range[] { new Range(0, (float) Math.PI) }, new Range[] { new Range(0, 1) });
     }
 
-    @Override
     public void compute(float[] output, float... input) {
-	for (int i = 0; i < input.length; i++) {
-	    float min = domain[i].min;
-	    float max = domain[i].max;
-	    output[i] = (max - input[i]) / (max - min);
-	}
+	float x = input[0];
+	output[0] = (float) Math.sin(x);
     }
 }

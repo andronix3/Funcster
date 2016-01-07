@@ -27,9 +27,12 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
+package com.smartg.function.impl;
 
 import java.util.ArrayList;
+
+import com.smartg.function.Function;
+import com.smartg.function.IFunction;
 
 /**
  * ChainFunction. Chain of a few functions. All functions must have same amount

@@ -27,55 +27,59 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
+package com.smartg.function.impl;
 
-/**
- * Simplified sampled function with one input and one output. Input and output
- * values are both in range from 0.0 to 1.0
- * 
- * @author andrey
- * 
- */
-public class Curve extends com.smartg.icc.Curve implements IFunction {
+import com.smartg.function.Function;
+import com.smartg.function.misc.Range;
 
-	protected Range[] domain = new Range[] { new Range(0.0f, 1.0f) };
-	protected Range[] range = new Range[] { new Range(0.0f, 1.0f) };
+public class LogFunction extends Function {
 
-	/**
-	 * Curve constructor
-	 * 
-	 * @param values
-	 *            If values is null or values.length is 0 than it is identity
-	 *            function. If values.length is 1 than it is a gamma function.
-	 *            Otherwise it is a curve function.
-	 * 
-	 */
-	public Curve(float[] values) {
-		super(values);
+    private float radiusX_2, radiusY_2;
+    private float max;
+
+    private float radiusX, radiusY;
+    private float s;
+
+    public LogFunction(int radius) {
+	this(radius, radius, (float) Math.PI);
+    }
+
+    public LogFunction(int radius, float s) {
+	this(radius, radius, s);
+    }
+
+    public LogFunction(int radiusX, int radiusY) {
+	this(radiusX, radiusY, (float) Math.PI);
+    }
+
+    public LogFunction(int radiusX, int radiusY, float s) {
+	super(Range.create(2, 0, 1), Range.create(1, 0, 1));
+	this.s = s;
+	this.radiusX = radiusX;
+	this.radiusY = radiusY;
+
+	radiusX_2 = (float) (radiusX / Math.sqrt(2));
+	radiusY_2 = (float) (radiusY / Math.sqrt(2));
+
+	max = (float) Math.sqrt(radiusX_2 * radiusX_2 + radiusY_2 * radiusY_2);
+    }
+
+    @Override
+    public void compute(float[] output, float... input) {
+	float x = input[0];
+	float y = input[1];
+
+	float dx = radiusX - x;
+	float dy = radiusY - y;
+
+	float f = (float) Math.sqrt(dx * dx + dy * dy);
+	float res = 0f;
+	if (f < max) {
+	    res = (s + (float) Math.log(1 - f / max)) * 255 / s;
+	    if (res < 0) {
+		res = 0;
+	    }
 	}
-
-	@Override
-	public void setValues(float[] values) {
-		super.setValues(values);
-	}
-
-	public void compute(float[] output, float ... input) {
-		output[0] = get(input[0]);
-	}
-
-	public int getNumInputs() {
-		return 1;
-	}
-
-	public int getNumOutputs() {
-		return 1;
-	}
-
-	public Range[] getInputDomain() {
-		return domain;
-	}
-
-	public Range[] getOutputRange() {
-		return range;
-	}
+	output[0] = res / 255.0f;
+    }
 }

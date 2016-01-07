@@ -27,24 +27,41 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
+package com.smartg.function.impl;
 
-/**
- * Minimalistic Point - just carry two double (x and y) values.
- * Speed preference - public access, no getters or setters.
- * 
- * @author andrey
- *
- */
-public class DPoint {
-    public double x, y;
+import com.smartg.function.IPlaneFunction;
+import com.smartg.function.misc.DPoint;
 
-    public DPoint() {
-	this(0, 0);
+public class PerspectiveTransform implements IPlaneFunction {
+
+    double a;
+    double b;
+
+    public PerspectiveTransform(double a, double b) {
+	this.a = a;
+	this.b = b;
     }
 
-    public DPoint(double x, double y) {
-	this.x = x;
-	this.y = y;
+    public void compute(double x, double y, DPoint dest) {
+	if (a == 0) {
+	    dest.x = x;
+	} else {
+	    double x2 = a * x;
+	    double k1 = x2 * x2 + x2 * x2;
+	    dest.x = -Math.cos(k1 / Math.PI);
+	}
+	if (b == 0) {
+	    dest.y = y;
+	} else {
+	    double y2 = b * y;
+	    double k2 = y2 * y2 + y2 * y2;
+	    dest.y = -Math.cos(k2 / Math.PI);
+	}
+	if (a < 0) {
+	    dest.x = -dest.x;
+	}
+	if (b < 0) {
+	    dest.y = -dest.y;
+	}
     }
 }

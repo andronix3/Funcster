@@ -27,11 +27,14 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
+package com.smartg.function.impl;
+
+import com.smartg.function.IPlaneFunction;
+import com.smartg.function.misc.DPoint;
 
 public class PlaneFunctions {
 
-    public static class Identity implements PlaneFunction {
+    public static class Identity implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    dest.x = x;
@@ -39,7 +42,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Sine_XY implements PlaneFunction {
+    public static class Sine_XY implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    dest.x = Math.sin(PID2 * x);
@@ -47,7 +50,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Sine_R implements PlaneFunction {
+    public static class Sine_R implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double r = Math.sqrt(x * x + y * y);
@@ -59,7 +62,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Square_XY implements PlaneFunction {
+    public static class Square_XY implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double x2 = x * x;
@@ -75,7 +78,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Square_R implements PlaneFunction {
+    public static class Square_R implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double r = Math.sqrt(x * x + y * y);
@@ -87,7 +90,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Asin_XY implements PlaneFunction {
+    public static class Asin_XY implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    dest.x = Math.asin(x) / PID2;
@@ -95,7 +98,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Asin_R implements PlaneFunction {
+    public static class Asin_R implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double r = Math.sqrt(x * x + y * y);
@@ -107,7 +110,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Polar implements PlaneFunction {
+    public static class Polar implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    dest.x = Math.log(Math.sqrt(x * x + y * y));
@@ -115,7 +118,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Fisheye implements PlaneFunction {
+    public static class Fisheye implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double r = Math.sqrt(x * x + y * y);
@@ -126,7 +129,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Octagon implements PlaneFunction {
+    public static class Octagon implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double phi = Math.atan2(y, x);
@@ -135,7 +138,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class ConcaveFisheye implements PlaneFunction {
+    public static class ConcaveFisheye implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double r = Math.sqrt(x * x + y * y);
@@ -148,7 +151,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class ConcaveFisheye2 implements PlaneFunction {
+    public static class ConcaveFisheye2 implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double r0 = x * x + y * y;
@@ -162,7 +165,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Clover implements PlaneFunction {
+    public static class Clover implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double r0 = x * x + y * y;
@@ -176,7 +179,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Crux implements PlaneFunction {
+    public static class Crux implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double x2 = x * x;
@@ -192,7 +195,7 @@ public class PlaneFunctions {
 	}
     }
 
-    public static class Asin_T implements PlaneFunction {
+    public static class Asin_T implements IPlaneFunction {
 
 	public void compute(double x, double y, DPoint dest) {
 	    double x2 = x * x;

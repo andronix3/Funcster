@@ -27,35 +27,18 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package com.smartg.function.misc;
 
-package com.smartg.function;
+public class FPoint {
 
-public class Range {
+    public float x, y;
 
-    public final float min;
-    public final float max;
-
-    public Range(float min, float max) {
-	this.min = min;
-	this.max = max;
+    public FPoint() {
+	this(0, 0);
     }
 
-    public static Range[] toRange(float[] values) {
-	int length = values.length / 2;
-	Range[] ranges = new Range[length];
-	for (int i = 0; i < length; i++) {
-	    ranges[i] = new Range(values[i + i], values[i + i + 1]);
-	}
-	return ranges;
-    }
-
-    public static Range[] create(int count, float min, float max) {
-	Range[] res = new Range[count];
-	Range r = new Range(min, max);
-	for (int i = 0; i < count; i++) {
-	    res[i] = r;
-	}
-
-	return res;
+    public FPoint(float x, float y) {
+	this.x = x;
+	this.y = y;
     }
 }

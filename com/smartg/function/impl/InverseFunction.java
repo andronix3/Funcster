@@ -27,35 +27,30 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
+package com.smartg.function.impl;
 
-public class GaussFunction extends Function {
+import com.smartg.function.Function;
+import com.smartg.function.misc.Range;
 
-    private final float radius = 0.5f;
-    private final float center = radius;
+public class InverseFunction extends Function {
 
-    private float max;
-    private float m;
-
-    public GaussFunction() {
-	this(0.5f);
-    }
-
-    public GaussFunction(float scale) {
-	super(new Range[] { new Range(0, 1), new Range(0, 1) }, new Range[] { new Range(0, 1) });
-	this.max = 0.5f * scale;
-	m = 2 * max * max;
+    /**
+     * InverseFunktion. <b>Range</b> is always from <b>0.0f</b> to <b>1.0f</b>.
+     * Resulting value is <b>(max - input) / (max - min)</b> (where <b>max</b>
+     * is upper domain value and <b>min</b> is lower domain value).
+     * 
+     * @param domain
+     */
+    public InverseFunction(Range[] domain) {
+	super(domain, new Range[] { new Range(0, 1) });
     }
 
     @Override
     public void compute(float[] output, float... input) {
-	float x = input[0];
-	float y = input[1];
-
-	float dx = center - x;
-	float dy = center - y;
-
-	float res = (float) Math.exp(-(dx * dx + dy * dy) / m);
-	output[0] = res;
+	for (int i = 0; i < input.length; i++) {
+	    float min = domain[i].min;
+	    float max = domain[i].max;
+	    output[i] = (max - input[i]) / (max - min);
+	}
     }
 }

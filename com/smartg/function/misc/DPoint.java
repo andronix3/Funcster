@@ -27,58 +27,24 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
+package com.smartg.function.misc;
 
 /**
- * Some commonly used functions for color processing. All calls are redirected
- * to ColorFunctions, so it is probably better to use ColorFunctions direct.
+ * Minimalistic Point - just carry two double (x and y) values.
+ * Speed preference - public access, no getters or setters.
  * 
  * @author andrey
- * 
+ *
  */
-public enum EFunction implements IFunction {
-	ColorBurn(new ColorFunction.ColorBurn()), //
-	ColorDodge(new ColorFunction.ColorDodge()), //
-	Darken(new ColorFunction.Darken()), //
-	Difference(new ColorFunction.Difference()), //
-	Exclusion(new ColorFunction.Exclusion()), //
-	Hardlight(new ColorFunction.Hardlight()), //
-	Lighten(new ColorFunction.Lighten()), //
-	Multiply(new ColorFunction.Multiply()), //
-	Overlay(new ColorFunction.Overlay()), //
-	Screen(new ColorFunction.Screen()), //
-	Softlight(new ColorFunction.Softlight()), //
-	Distance(new ColorFunction.Distance()), //
-	Add(new ColorFunction.Add()), //
-	Sub(new ColorFunction.Sub())//
-	;
+public class DPoint {
+    public double x, y;
 
-	private final ColorFunction sf;
+    public DPoint() {
+	this(0, 0);
+    }
 
-	private Range[] domain = new Range[] { new Range(0f, 1f) };
-	private Range[] range = new Range[] { new Range(0f, 1f) };
-
-	private EFunction(ColorFunction sf) {
-		this.sf = sf;
-	}
-
-	public final void compute(float[] output, float... input) {
-		sf.compute(output, input);
-	}
-
-	public Range[] getInputDomain() {
-		return domain;
-	}
-
-	public int getNumInputs() {
-		return 2;
-	}
-
-	public int getNumOutputs() {
-		return 1;
-	}
-
-	public Range[] getOutputRange() {
-		return range;
-	}
+    public DPoint(double x, double y) {
+	this.x = x;
+	this.y = y;
+    }
 }

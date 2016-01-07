@@ -29,37 +29,17 @@
  */
 package com.smartg.function;
 
+import com.smartg.function.misc.DPoint;
 
-public class PerspectiveTransform implements PlaneFunction {
+/**
+ * PlaneFunction is a function used for coordinate transformation
+ * @author andrey
+ *
+ */
+public interface IPlaneFunction {
 
-    double a;
-    double b;
+    final double PID2 = Math.PI / 2;
 
-    public PerspectiveTransform(double a, double b) {
-	this.a = a;
-	this.b = b;
-    }
+    void compute(double x, double y, DPoint dest);
 
-    public void compute(double x, double y, DPoint dest) {
-	if (a == 0) {
-	    dest.x = x;
-	} else {
-	    double x2 = a * x;
-	    double k1 = x2 * x2 + x2 * x2;
-	    dest.x = -Math.cos(k1 / Math.PI);
-	}
-	if (b == 0) {
-	    dest.y = y;
-	} else {
-	    double y2 = b * y;
-	    double k2 = y2 * y2 + y2 * y2;
-	    dest.y = -Math.cos(k2 / Math.PI);
-	}
-	if (a < 0) {
-	    dest.x = -dest.x;
-	}
-	if (b < 0) {
-	    dest.y = -dest.y;
-	}
-    }
 }

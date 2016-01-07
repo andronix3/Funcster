@@ -27,17 +27,19 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
+package com.smartg.function.impl;
 
-public class SigmoidalFunction extends Function {
+import com.smartg.function.Function;
 
-    public SigmoidalFunction() {
-	super(new Range[] { new Range(0, 1) }, new Range[] { new Range(0, 1) });
+public class IdentityFunction extends Function {
+
+    public IdentityFunction() {
+
     }
 
     public void compute(float[] output, float... input) {
 	for (int i = 0; i < input.length; i++) {
-	    output[i] = (float) (1.0 / (1.0 + Math.exp(-input[i])));
+	    output[i] = input[i];
 	}
     }
 }

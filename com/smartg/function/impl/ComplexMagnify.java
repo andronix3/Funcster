@@ -27,8 +27,10 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
+package com.smartg.function.impl;
 
+import com.smartg.function.IComplexFunction;
+import com.smartg.function.misc.Complex;
 
 /**
  * Helper for complex functions.
@@ -37,12 +39,12 @@ package com.smartg.function;
  * @author andrey
  *
  */
-public class ComplexMagnify implements ComplexFunction {
+public class ComplexMagnify implements IComplexFunction {
 
     float width, height;
     Complex c = new Complex();
     Complex tmp = new Complex();
-    ComplexFunction f;
+    IComplexFunction f;
 
     double rotate = Math.PI + 0.01;
     double ix;
@@ -56,7 +58,7 @@ public class ComplexMagnify implements ComplexFunction {
 
     double magnify = 1000;
     
-    public ComplexMagnify(ComplexFunction f) {
+    public ComplexMagnify(IComplexFunction f) {
 	this.f = f;
     }
 
@@ -71,11 +73,11 @@ public class ComplexMagnify implements ComplexFunction {
      * @param magnify
      *            zoom factor
      */
-    public ComplexMagnify(float width, float height, ComplexFunction f, double magnify) {
+    public ComplexMagnify(float width, float height, IComplexFunction f, double magnify) {
 	this(Math.PI + 0.01, width, height, f, magnify);
     }
 
-    public ComplexMagnify(double rotate, float width, float height, ComplexFunction f, double magnify) {
+    public ComplexMagnify(double rotate, float width, float height, IComplexFunction f, double magnify) {
 	this.width = width;
 	this.height = height;
 	this.f = f;

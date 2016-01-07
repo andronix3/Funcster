@@ -27,9 +27,43 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package com.smartg.function.impl;
 
-package com.smartg.function;
+import com.smartg.function.IComplexFunction;
+import com.smartg.function.IPlaneFunction;
+import com.smartg.function.misc.Complex;
+import com.smartg.function.misc.DPoint;
 
-public interface ComplexFunction {
-    void compute(Complex dest, Complex cn);
+/**
+ * Wrapper for ComplexFunction. Just pass point(x, y) as complex number to
+ * complex function.
+ * 
+ * @author andrey
+ * 
+ */
+public class ComplexPlaneFunction implements IPlaneFunction {
+
+    private IComplexFunction function;
+    private Complex complex = new Complex();
+    private Complex dst = new Complex();
+
+    public ComplexPlaneFunction(IComplexFunction function) {
+	this.function = function;
+    }
+
+    public void compute(double x, double y, DPoint dest) {
+	complex.re = x;
+	complex.im = y;
+	function.compute(dst, complex);
+	dest.x = dst.re;
+	dest.y = dst.im;
+    }
+
+    public IComplexFunction getFunction() {
+	return function;
+    }
+
+    public void setFunction(IComplexFunction function) {
+	this.function = function;
+    }
 }

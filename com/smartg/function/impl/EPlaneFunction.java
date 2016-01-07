@@ -27,47 +27,39 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
 
-/**
- * Aggregate n 1-input 1-output functions to one n-input n-output function.
- * 
- * @author andrey
- * 
- */
-public class MultiFunction extends Function {
+package com.smartg.function.impl;
 
-    private IFunction[] functions;
+import com.smartg.function.IPlaneFunction;
+import com.smartg.function.impl.PlaneFunctions.*;
 
-    public MultiFunction(IFunction[] functions) {
-	super(createDomain(functions), createRange(functions));
-	this.functions = functions;
+public enum EPlaneFunction {
+    IDENTITY(new Identity()),
+    SINE_XY(new Sine_XY()),
+    SINE_R(new Sine_R()),
+    SQUARE_XY(new Square_XY()),
+    SQUARE_R(new Square_R()),
+    ASIN_XY(new Asin_XY()),
+    ASIN_R(new Asin_R()),
+    POLAR(new Polar()),
+    FISHEYE(new Fisheye()),
+    OCTAGON(new Octagon()),
+    CONCAVE_FISHEYE(new ConcaveFisheye()),
+    CONCAVE_FISHEYE2(new ConcaveFisheye2()),
+    CLOVER(new Clover()),
+    CRUX(new Crux()),
+    ASIN_T(new Asin_T())
+   
+    ;
+
+    private EPlaneFunction(IPlaneFunction planeFunction) {
+	this.planeFunction = planeFunction;
     }
 
-    public void compute(float[] output, float... input) {
-	float[] out = new float[1];
-	int i = 0;
-	for (float f : input) {
-	    functions[i].compute(out, f);
-	    output[i++] = out[0];
-	}
+    IPlaneFunction planeFunction;
+
+    public IPlaneFunction getPlaneFunction() {
+	return planeFunction;
     }
 
-    static Range[] createRange(IFunction[] functions) {
-	int length = functions.length;
-	Range[] res = new Range[length];
-	for (int i = 0; i < length; i++) {
-	    res[i] = functions[i].getOutputRange()[0];
-	}
-	return res;
-    }
-
-    static Range[] createDomain(IFunction[] functions) {
-	int length = functions.length;
-	Range[] res = new Range[length];
-	for (int i = 0; i < length; i++) {
-	    res[i] = functions[i].getInputDomain()[0];
-	}
-	return res;
-    }
 }

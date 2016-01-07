@@ -27,38 +27,27 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
+package com.smartg.function.impl;
 
-public class LogFunction extends Function {
+import com.smartg.function.Function;
+import com.smartg.function.misc.Range;
 
-    private float radiusX_2, radiusY_2;
+public class GaussFunction extends Function {
+
+    private final float radius = 0.5f;
+    private final float center = radius;
+
     private float max;
+    private float m;
 
-    private float radiusX, radiusY;
-    private float s;
-
-    public LogFunction(int radius) {
-	this(radius, radius, (float) Math.PI);
+    public GaussFunction() {
+	this(0.5f);
     }
 
-    public LogFunction(int radius, float s) {
-	this(radius, radius, s);
-    }
-
-    public LogFunction(int radiusX, int radiusY) {
-	this(radiusX, radiusY, (float) Math.PI);
-    }
-
-    public LogFunction(int radiusX, int radiusY, float s) {
-	super(Range.create(2, 0, 1), Range.create(1, 0, 1));
-	this.s = s;
-	this.radiusX = radiusX;
-	this.radiusY = radiusY;
-
-	radiusX_2 = (float) (radiusX / Math.sqrt(2));
-	radiusY_2 = (float) (radiusY / Math.sqrt(2));
-
-	max = (float) Math.sqrt(radiusX_2 * radiusX_2 + radiusY_2 * radiusY_2);
+    public GaussFunction(float scale) {
+	super(new Range[] { new Range(0, 1), new Range(0, 1) }, new Range[] { new Range(0, 1) });
+	this.max = 0.5f * scale;
+	m = 2 * max * max;
     }
 
     @Override
@@ -66,17 +55,10 @@ public class LogFunction extends Function {
 	float x = input[0];
 	float y = input[1];
 
-	float dx = radiusX - x;
-	float dy = radiusY - y;
+	float dx = center - x;
+	float dy = center - y;
 
-	float f = (float) Math.sqrt(dx * dx + dy * dy);
-	float res = 0f;
-	if (f < max) {
-	    res = (s + (float) Math.log(1 - f / max)) * 255 / s;
-	    if (res < 0) {
-		res = 0;
-	    }
-	}
-	output[0] = res / 255.0f;
+	float res = (float) Math.exp(-(dx * dx + dy * dy) / m);
+	output[0] = res;
     }
 }

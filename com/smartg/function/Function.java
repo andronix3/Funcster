@@ -29,6 +29,8 @@
  */
 package com.smartg.function;
 
+import com.smartg.function.misc.Range;
+
 public abstract class Function implements IFunction {
 
     protected Range[] domain;

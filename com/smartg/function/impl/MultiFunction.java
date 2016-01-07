@@ -27,17 +27,51 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.smartg.function;
+package com.smartg.function.impl;
 
-public class IdentityFunction extends Function {
+import com.smartg.function.Function;
+import com.smartg.function.IFunction;
+import com.smartg.function.misc.Range;
 
-    public IdentityFunction() {
+/**
+ * Aggregate n 1-input 1-output functions to one n-input n-output function.
+ * 
+ * @author andrey
+ * 
+ */
+public class MultiFunction extends Function {
 
+    private IFunction[] functions;
+
+    public MultiFunction(IFunction[] functions) {
+	super(createDomain(functions), createRange(functions));
+	this.functions = functions;
     }
 
     public void compute(float[] output, float... input) {
-	for (int i = 0; i < input.length; i++) {
-	    output[i] = input[i];
+	float[] out = new float[1];
+	int i = 0;
+	for (float f : input) {
+	    functions[i].compute(out, f);
+	    output[i++] = out[0];
 	}
+    }
+
+    static Range[] createRange(IFunction[] functions) {
+	int length = functions.length;
+	Range[] res = new Range[length];
+	for (int i = 0; i < length; i++) {
+	    res[i] = functions[i].getOutputRange()[0];
+	}
+	return res;
+    }
+
+    static Range[] createDomain(IFunction[] functions) {
+	int length = functions.length;
+	Range[] res = new Range[length];
+	for (int i = 0; i < length; i++) {
+	    res[i] = functions[i].getInputDomain()[0];
+	}
+	return res;
     }
 }
