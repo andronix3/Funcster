@@ -58,4 +58,8 @@ public class Range {
 
 	return res;
     }
+    
+    public double length() {
+	return max - min;
+    }
 }
