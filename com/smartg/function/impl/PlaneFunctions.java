@@ -30,13 +30,13 @@
 package com.smartg.function.impl;
 
 import com.smartg.function.IPlaneFunction;
-import com.smartg.function.misc.DPoint;
+import com.smartg.function.misc.SPoint;
 
 public class PlaneFunctions {
 
     public static class Identity implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    dest.x = x;
 	    dest.y = y;
 	}
@@ -44,7 +44,7 @@ public class PlaneFunctions {
 
     public static class Sine_XY implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    dest.x = Math.sin(PID2 * x);
 	    dest.y = Math.sin(PID2 * y);
 	}
@@ -52,7 +52,7 @@ public class PlaneFunctions {
 
     public static class Sine_R implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double r = Math.sqrt(x * x + y * y);
 	    double theta = Math.atan2(y, x);
 
@@ -64,7 +64,7 @@ public class PlaneFunctions {
 
     public static class Square_XY implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double x2 = x * x;
 	    double y2 = y * y;
 	    if (x < 0) {
@@ -80,7 +80,7 @@ public class PlaneFunctions {
 
     public static class Square_R implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double r = Math.sqrt(x * x + y * y);
 	    double theta = Math.atan2(y, x);
 
@@ -92,7 +92,7 @@ public class PlaneFunctions {
 
     public static class Asin_XY implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    dest.x = Math.asin(x) / PID2;
 	    dest.y = Math.asin(y) / PID2;
 	}
@@ -100,7 +100,7 @@ public class PlaneFunctions {
 
     public static class Asin_R implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double r = Math.sqrt(x * x + y * y);
 	    double theta = Math.atan2(y, x);
 
@@ -112,7 +112,7 @@ public class PlaneFunctions {
 
     public static class Polar implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    dest.x = Math.log(Math.sqrt(x * x + y * y));
 	    dest.y = Math.atan2(x, y);
 	}
@@ -120,7 +120,7 @@ public class PlaneFunctions {
 
     public static class Fisheye implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double r = Math.sqrt(x * x + y * y);
 	    r = Math.atan2(r, 0.3) / (PID2 * 0.9);
 	    double phi = Math.atan2(y, x);
@@ -131,7 +131,7 @@ public class PlaneFunctions {
 
     public static class Octagon implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double phi = Math.atan2(y, x);
 	    dest.x = Math.abs(x) * Math.cos(phi);
 	    dest.y = Math.abs(y) * Math.sin(phi);
@@ -140,7 +140,7 @@ public class PlaneFunctions {
 
     public static class ConcaveFisheye implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double r = Math.sqrt(x * x + y * y);
 
 	    double z = PID2 - Math.PI * r;
@@ -153,7 +153,7 @@ public class PlaneFunctions {
 
     public static class ConcaveFisheye2 implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double r0 = x * x + y * y;
 	    double r = Math.sqrt(r0);
 
@@ -167,7 +167,7 @@ public class PlaneFunctions {
 
     public static class Clover implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double r0 = x * x + y * y;
 	    double r = Math.sqrt(r0);
 	    double phi = Math.atan2(y, x);
@@ -181,7 +181,7 @@ public class PlaneFunctions {
 
     public static class Crux implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double x2 = x * x;
 	    double y2 = y * y;
 	    double r0 = x2 + y2;
@@ -197,7 +197,7 @@ public class PlaneFunctions {
 
     public static class Asin_T implements IPlaneFunction {
 
-	public void compute(double x, double y, DPoint dest) {
+	public void compute(double x, double y, SPoint dest) {
 	    double x2 = x * x;
 	    double y2 = y * y;
 	    double r0 = x2 + y2;

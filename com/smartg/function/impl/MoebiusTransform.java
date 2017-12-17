@@ -31,7 +31,7 @@
 package com.smartg.function.impl;
 
 import com.smartg.function.IPlaneFunction;
-import com.smartg.function.misc.DPoint;
+import com.smartg.function.misc.SPoint;
 
 public class MoebiusTransform implements IPlaneFunction {
 
@@ -44,7 +44,7 @@ public class MoebiusTransform implements IPlaneFunction {
 	this.w = w;
     }
 
-    public void compute(double x, double y, DPoint dest) {
+    public void compute(double x, double y, SPoint dest) {
 	double x2 = x * x;
 	double y2 = y * y;
 	double r0 = x2 + y2;

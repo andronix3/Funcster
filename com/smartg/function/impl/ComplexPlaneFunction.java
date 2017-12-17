@@ -32,7 +32,7 @@ package com.smartg.function.impl;
 import com.smartg.function.IComplexFunction;
 import com.smartg.function.IPlaneFunction;
 import com.smartg.function.misc.Complex;
-import com.smartg.function.misc.DPoint;
+import com.smartg.function.misc.SPoint;
 
 /**
  * Wrapper for ComplexFunction. Just pass point(x, y) as complex number to
@@ -51,7 +51,7 @@ public class ComplexPlaneFunction implements IPlaneFunction {
 	this.function = function;
     }
 
-    public void compute(double x, double y, DPoint dest) {
+    public void compute(double x, double y, SPoint dest) {
 	complex.re = x;
 	complex.im = y;
 	function.compute(dst, complex);

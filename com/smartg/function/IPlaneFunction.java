@@ -29,7 +29,7 @@
  */
 package com.smartg.function;
 
-import com.smartg.function.misc.DPoint;
+import com.smartg.function.misc.SPoint;
 
 /**
  * PlaneFunction is a function used for coordinate transformation
@@ -40,6 +40,6 @@ public interface IPlaneFunction {
 
     final double PID2 = Math.PI / 2;
 
-    void compute(double x, double y, DPoint dest);
+    void compute(double x, double y, SPoint dest);
 
 }

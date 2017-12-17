@@ -30,21 +30,21 @@
 package com.smartg.function.misc;
 
 /**
- * Minimalistic Point - just carry two double (x and y) values.
- * Speed preference - public access, no getters or setters.
+ * Minimalistic Point - just carry two double (x and y) values. Speed preference
+ * - public access, no getters or setters.
  * 
  * @author andrey
  *
  */
-public class DPoint {
-    public double x, y;
+public class SPoint {
+	public double x, y;
 
-    public DPoint() {
-	this(0, 0);
-    }
+	public SPoint() {
+		this(0, 0);
+	}
 
-    public DPoint(double x, double y) {
-	this.x = x;
-	this.y = y;
-    }
+	public SPoint(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
 }

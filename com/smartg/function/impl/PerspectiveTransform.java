@@ -30,7 +30,7 @@
 package com.smartg.function.impl;
 
 import com.smartg.function.IPlaneFunction;
-import com.smartg.function.misc.DPoint;
+import com.smartg.function.misc.SPoint;
 
 public class PerspectiveTransform implements IPlaneFunction {
 
@@ -42,7 +42,7 @@ public class PerspectiveTransform implements IPlaneFunction {
 	this.b = b;
     }
 
-    public void compute(double x, double y, DPoint dest) {
+    public void compute(double x, double y, SPoint dest) {
 	if (a == 0) {
 	    dest.x = x;
 	} else {
