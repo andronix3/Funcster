@@ -52,7 +52,7 @@ public interface IFunction {
     int getNumOutputs();
 
     /**
-     * An array of 2 × m numbers, where m is the number of input values.
+     * An array of 2 m numbers, where m is the number of input values.
      * For each i from 0 to m - 1 the ith input value must be in interval from domain[i * 2] to domain[i * 2 + 1].
      * Input values outside the declared domain are clipped to the nearest boundary value.
      * 
@@ -61,7 +61,7 @@ public interface IFunction {
     Range[] getInputDomain();
 
     /**
-     * An array of 2 × n numbers, where n is the number of output values.
+     * An array of 2 n numbers, where n is the number of output values.
      * For each j from 0 to n - 1 the jth output value,
      * must be in the interval from range[2 * j] to range[2 * j + 1].
      * Output values outside the declared range are clipped to the nearest boundary value.

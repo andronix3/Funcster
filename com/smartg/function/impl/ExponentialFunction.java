@@ -57,7 +57,7 @@ public class ExponentialFunction extends Function {
 	 *            outside the declared domain are clipped to the nearest
 	 *            boundary value.
 	 * @param range
-	 *            An array of 2 × n numbers, where n is the number of output
+	 *            An array of 2  n numbers, where n is the number of output
 	 *            values. For each j from 0 to n - 1, Range[2j] must be less
 	 *            than or equal to Range[2j+1] , and the jth output value, yj ,
 	 *            must lie in the interval Range[2j] = yj = Range[2j+1] . Output
