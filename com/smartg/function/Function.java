@@ -33,44 +33,47 @@ import com.smartg.function.misc.Range;
 
 public abstract class Function implements IFunction {
 
-    protected Range[] domain;
-    protected Range[] range;
+	protected Range[] domain;
+	protected Range[] range;
 
-    public int getNumInputs() {
-	return domain.length;
-    }
+	public int getNumInputs() {
+		return domain.length;
+	}
 
-    public int getNumOutputs() {
-	return range.length;
-    }
+	public int getNumOutputs() {
+		return range.length;
+	}
 
-    protected final float interpolate(float x, float xmin, float xmax, float ymin, float ymax) {
-	return ymin + ((x - xmin) * ((ymax - ymin) / (xmax - xmin)));
-    }
+	/**
+	 * linear interpolation
+	 */
+	protected final float interpolate(float x, float xmin, float xmax, float ymin, float ymax) {
+		return ymin + ((x - xmin) * ((ymax - ymin) / (xmax - xmin)));
+	}
 
-    protected Function() {
-    }
+	protected Function() {
+	}
 
-    protected Function(Range[] domain, Range[] range) {
-	this.domain = domain;
-	this.range = range;
-    }
+	protected Function(Range[] domain, Range[] range) {
+		this.domain = domain;
+		this.range = range;
+	}
 
-    protected void setRange(Range[] rangeValues) {
-	range = rangeValues;
-    }
+	protected void setRange(Range[] rangeValues) {
+		range = rangeValues;
+	}
 
-    protected void setDomain(Range[] domainValues) {
-	domain = domainValues;
-    }
+	protected void setDomain(Range[] domainValues) {
+		domain = domainValues;
+	}
 
-    public abstract void compute(float[] output, float... input);
+	public abstract void compute(float[] output, float... input);
 
-    public Range[] getInputDomain() {
-	return domain;
-    }
+	public Range[] getInputDomain() {
+		return domain;
+	}
 
-    public Range[] getOutputRange() {
-	return range;
-    }
+	public Range[] getOutputRange() {
+		return range;
+	}
 }
